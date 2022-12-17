@@ -71,8 +71,13 @@ void displaySetup(){
     Serial.println(F("SSD1306 allocation failed"));
     while(1) delay(10); // Don't proceed, loop forever
   }
-  display.display();
+  display.clearDisplay();
   display.setTextColor(SSD1306_WHITE);
+  display.setTextSize(2);
+  display.setCursor(0,0);
+  display.println("~Shake me~");
+  display.display();
+  
 }
 void setup(void)
 {
@@ -111,19 +116,34 @@ void loop(void)
         break;
       case HIMOTHY:
         Serial.println("You are he");
+
         display.clearDisplay();
         display.setCursor(0,0);
         display.setTextSize(2);
-        display.println("Analysis...");
-        display.println("Analysis...");
-        display.println("Analysis...");
+        display.println("Analysis..");
+        display.println("Analysis..");
+        display.println("Analysis..");
         display.display();
         scroll();
         delay(1000);
+
         display.clearDisplay();
         display.display();
+
+        drv.setWaveform(0, 77);  // play effect 
+        drv.setWaveform(1, 0);       // end waveform   // end waveform
+        drv.go();
+
         testdrawrect();
+
+        drv.setWaveform(0, 79);  // play effect 
+        drv.setWaveform(1, 0);       // end waveform   // end waveform
+        drv.go();
+        
         testdrawcircle();
+        drv.setWaveform(0, 47);  // play effect 
+        drv.setWaveform(1, 0);       // end waveform   // end waveform
+        drv.go();
         testdrawline();
         display.clearDisplay();
         display.setCursor(10,0);
@@ -134,7 +154,7 @@ void loop(void)
         display.println(F(" DETECTED!"));
         display.display();
 
-        for (int i = 0; i < 8;i++ ){
+        for (int i = 0; i < 12;i++ ){
           drv.setWaveform(0, VIBRATION_EFFECT);  // play effect 
           drv.setWaveform(1, 0);       // end waveform   // end waveform
           drv.go();
@@ -147,6 +167,8 @@ void loop(void)
         //revert back to a normal display
         display.invertDisplay(false);
         display.clearDisplay();
+        display.display();
+        delay(500);
         display.setCursor(0,0);
         display.setTextSize(2);
         display.println(F("Waiting \nfor \nHIM"));
@@ -209,7 +231,9 @@ void testdrawline(void) {
     delay(1);
   }
   delay(150);
-
+  drv.setWaveform(0, 47);  // play effect 
+  drv.setWaveform(1, 0);       // end waveform   // end waveform
+  drv.go();
   display.clearDisplay();
 
   for(i=0; i<display.width(); i+=4) {
@@ -223,7 +247,9 @@ void testdrawline(void) {
     delay(1);
   }
   delay(150);
-
+  drv.setWaveform(0, 47);  // play effect 
+  drv.setWaveform(1, 0);       // end waveform   // end waveform
+  drv.go();
   display.clearDisplay();
 
   for(i=display.width()-1; i>=0; i-=4) {
@@ -237,7 +263,9 @@ void testdrawline(void) {
     delay(1);
   }
   delay(150);
-
+  drv.setWaveform(0, 47);  // play effect 
+  drv.setWaveform(1, 0);       // end waveform   // end waveform
+  drv.go();
   display.clearDisplay();
 
   for(i=0; i<display.height(); i+=4) {
@@ -250,6 +278,8 @@ void testdrawline(void) {
     display.display();
     delay(1);
   }
-
+  drv.setWaveform(0, 47);  // play effect 
+  drv.setWaveform(1, 0);       // end waveform   // end waveform
+  drv.go();
   delay(2000); // Pause for 2 seconds
 }
